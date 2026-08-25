@@ -12,8 +12,19 @@ public:
 
 };
 
+template <typename T> struct IsPointer {
+	static constexpr bool value = false;
+};
+
+template <typename U> struct IsPointer<U*> {
+	static constexpr bool value = true;
+};
+
 int main() {
-	StaticArray<int, 10> data;
+	StaticArray<int, 30> data;
+	IsPointer<int> a;
+
+	std::cout << a.value << std::endl;
 
 	for (auto i = 0; i < data.size(); ++i) {
 		data[i] = i;
