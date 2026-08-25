@@ -1,19 +1,22 @@
 ﻿#include <iostream>
 
-template<class T>
-T max(T a, T b)
-{
-	return (a > b) ? a : b;
-}
+template<typename T , std::size_t N>
 
-int main()
-{
-	float a = 10.1;
-	float b = 10.2;
+class StaticArray {
+	T data[N];
+public:
 
-	std::cout << "max:" << max(a, b) << std::endl;
-	std::cout << "max:" << max(a, b) << std::endl;
-	std::cout << "max:" << max(a, b) << std::endl;
+	constexpr T & operator[](std::size_t i)  {return data[i];}
+	constexpr const T& operator[](std::size_t i) const {return data[i];}
+	constexpr std::size_t size() const {return N;}
 
+};
 
+int main() {
+	StaticArray<int, 10> data;
+
+	for (auto i = 0; i < data.size(); ++i) {
+		data[i] = i;
+	}
+	std::cout << data[5] << std::endl;
 }
